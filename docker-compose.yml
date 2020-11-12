@@ -3,8 +3,12 @@ version: "3.7"
 services:
   postgres:
     image: registry.gitlab.com/noiz-group/noiz:postgres
-    env_file:
-      - postgres.env
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: noiztest
+      POSTGRES_PASSWORD: noiztest
+      POSTGRES_DB: noiztest
     command:
       - "postgres"
       - "-c"
@@ -23,13 +27,12 @@ services:
       - "8060:8080"
 
   noiz:
-    image: registry.gitlab.com/noiz-group/noiz:latest
+    image: registry.gitlab.com/noiz-group/noiz:stable
     depends_on:
       - postgres
 #    env_file:
 #      - noizapp.env
     environment:
-      FLASK_APP: autoapp.py
       POSTGRES_HOST: postgres
       POSTGRES_PORT: "5432"
       POSTGRES_USER: noiztest
@@ -52,4 +55,5 @@ services:
     volumes:
       - ./processed-data-dir:/processed-data-dir
       - ./SDS:/SDS
+      - ./noiz:/noiz
     
