@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  postgres:
+    image: registry.gitlab.com/noiz-group/noiz:postgres
+    env_file:
+      - postgres.env
+    command:
+      - "postgres"
+      - "-c"
+      - "max_connections=1000"
+      - "-c"
+      - "shared_buffers=3GB"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./noiz-postgres-data:/var/lib/postgresql/data/pgdata # set that directory to some fast drive
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8060:8080"
+
+  noiz:
+    image: registry.gitlab.com/noiz-group/noiz:latest
+    depends_on:
+      - postgres
+#    env_file:
+#      - noizapp.env
+    environment:
+      FLASK_APP: autoapp.py
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: noiztest
+      POSTGRES_PASSWORD: noiztest
+      POSTGRES_DB: noiztest
+      PROCESSED_DATA_DIR: /processed-data-dir
+      # You can either set all those variables here or put them into a .env file and pass it as a whole
+    ports:
+      - "5000:5000"  # Flask port
+      - "5088:8888"  # Jupyterlab port
+
+    # You can either start a server of Jupyterlab or a flask server.
+    # Currently, I recommend jupyter, flask has nothing to offer
+    #    command: flask run --host=0.0.0.0
+    command: jupyter lab --no-browser --ip=0.0.0.0 --port=8888 --allow-root
+    # Here are all the mounts of local filesystem to the docker one.
+    # The first one has to be pointing to some directory that you set in the PROCESSED_DATA_DIR env var
+    # The second one is just to give some data to the system.
+    # Of course, if you don't mount any of those, it will still work, but you will not be able to persist any data.
+    volumes:
+      - ./processed-data-dir:/processed-data-dir
+      - ./SDS:/SDS
+    
