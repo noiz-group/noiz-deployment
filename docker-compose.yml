@@ -18,7 +18,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./noiz-postgres-data:/var/lib/postgresql/data/pgdata # set that directory to some fast drive
+      - ./noiz-postgres-data:/var/lib/postgresql/data/ # set that directory to some fast drive
 
   adminer:
     image: adminer
@@ -53,7 +53,7 @@ services:
     # The second one is just to give some data to the system.
     # Of course, if you don't mount any of those, it will still work, but you will not be able to persist any data.
     volumes:
-      - ./processed-data-dir:/processed-data-dir
-      - ./SDS:/SDS
-      - ./noiz:/noiz
+      - /home/alex/noiz_databases/processed-data-dir-tutorial:/processed-data-dir
+      - /home/alex/programs/noiz-tutorial-dataset/dataset:/SDS
+      - /home/alex/programs/noiz:/noiz
     

@@ -10,22 +10,36 @@ It will contain no code, but it will rather be focused on properly docker-compos
 docker
 And access to internet so you can connect to the docker image repository
 
-## Setting up
-
-You need to login to your gitlab repository. 
-To do that, go to your terminal and type:
-
-```shell script
-docker login registry.gitlab.com 
-```
-
-It will prompt you for giving user and password. 
-You can either use your gitlab credentials or use something called `deploy token` that is delivered by gitlab.
-I higly recommend using the latter one since they are going to be stored in plain text file.
-
 ## Running
 
-First of all, adjust mount paths in the `docker-compose.yml`. 
+First of all, adjust mount paths in the `docker-compose.yml`.
+You need to specify three directories on your local machine :
+
+- Directory for hosting all the files referenced in the Noiz database (datchunks and processing results). 
+Make sure this path is on a disk with enough space to host such a volume of data.
+In our example, we create an empty directory, which will serve as mount path :
+/home/alex/noiz_databases/processed-data-dir-tutorial
+
+- Directory for hosting the input raw data (miniseed files, station.xml, state-of-health files).
+In our example we use the tutorial dataset :
+```shell script
+git clone git@gitlab.com:noiz-group/noiz-tutorial-dataset.git /home/alex/programs/
+``` 
+The mount path in this case will be :
+/home/alex/programs/noiz-tutorial-dataset/dataset
+
+- Directory for hosting the Noiz source codes. This must be an empty directory, since the source code of Noiz will automatically be pulled from the source repository when building the docker container.
+In our example, the mount path will be :
+/home/alex/programs/noiz
+
+Specify these mounts as following at the end of your docker-compose.yml
+```
+volumes:
+  - /home/alex/noiz_databases/processed-data-dir-tutorial:/processed-data-dir
+  - /home/alex/programs/noiz-tutorial-dataset/dataset:/SDS
+  - /home/alex/programs/noiz:/noiz
+```
+
 After you do that you can run in terminal:
 ```shell script
 docker-compose pull
