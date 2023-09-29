@@ -68,9 +68,16 @@ docker-compose logs -f -t
 
 It will print out of the logs and will keep following them, as if you were attached to the process. 
 If you don't want to print the whole history, you need to add a flag `--tail 50` that will show only last 50 lines for each of the containers.
+Find the line where the jupyterlab token is given, it looks like :
+```
+http://127.0.0.1:8888/lab?token=61b38931e49123aeaf86419b03e1734956f6b5c45d512e51
+```
+Save the token in some separate file : you will need it for using the Jupyter server.
 
 Now, open new terminal.
 In the new terminal, type:
 ```shell script
 docker exec  -it noiz-deployment_noiz_1 /bin/bash     
 ```
+
+You are ready to run the Noiz core processing of your dataset : example here https://noiz-group.gitlab.io/noiz/content/tutorials/notebook_tutorial.html
