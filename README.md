@@ -80,4 +80,4 @@ In the new terminal, type:
 docker exec  -it noiz-deployment_noiz_1 /bin/bash     
 ```
 
-You are ready to run the Noiz core processing of your dataset : example here https://noiz-group.gitlab.io/noiz/content/tutorials/notebook_tutorial.html
+You are ready to run the Noiz core processing of your dataset : example here https://noiz-group.gitlab.io/noiz/content/tutorials/step_by_step.html
