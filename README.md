@@ -23,7 +23,7 @@ In our example, we create an empty directory, which will serve as mount path :
 - Directory for hosting the input raw data (miniseed files, station.xml, state-of-health files).
 In our example we use the tutorial dataset :
 ```shell script
-git clone git@gitlab.com:noiz-group/noiz-tutorial-dataset.git /home/alex/programs/
+git clone git@gitlab.com:noiz-group/noiz-tutorial-dataset.git /home/username/programs/
 ``` 
 The mount path in this case will be :
 /home/alex/programs/noiz-tutorial-dataset/dataset
