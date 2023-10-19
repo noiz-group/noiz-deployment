@@ -37,7 +37,7 @@ Specify these mounts as following at the end of your docker-compose.yml
 volumes:
   - /home/alex/noiz_databases/processed-data-dir-tutorial:/processed-data-dir
   - /home/alex/programs/noiz-tutorial-dataset/dataset:/SDS
-  - /home/alex/programs/noiz:/noiz
+  - /home/username/programs/noiz:/noiz
 ```
 
 After you do that you can run in terminal:
