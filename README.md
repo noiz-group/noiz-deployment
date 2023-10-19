@@ -26,7 +26,7 @@ In our example we use the tutorial dataset :
 git clone git@gitlab.com:noiz-group/noiz-tutorial-dataset.git /home/username/programs/
 ``` 
 The mount path in this case will be :
-/home/alex/programs/noiz-tutorial-dataset/dataset
+/home/username/programs/noiz-tutorial-dataset/dataset
 
 - Directory for hosting the Noiz source codes. This must be an empty directory, since the source code of Noiz will automatically be pulled from the source repository when building the docker container.
 In our example, the mount path will be :
