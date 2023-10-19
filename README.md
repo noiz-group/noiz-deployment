@@ -35,7 +35,7 @@ In our example, the mount path will be :
 Specify these mounts as following at the end of your docker-compose.yml
 ```
 volumes:
-  - /home/alex/noiz_databases/processed-data-dir-tutorial:/processed-data-dir
+  - /home/username/noiz_databases/processed-data-dir-tutorial:/processed-data-dir
   - /home/alex/programs/noiz-tutorial-dataset/dataset:/SDS
   - /home/username/programs/noiz:/noiz
 ```
