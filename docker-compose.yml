@@ -33,12 +33,12 @@ services:
 #    env_file:
 #      - noizapp.env
     environment:
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: "5432"
-      POSTGRES_USER: noiztest
-      POSTGRES_PASSWORD: noiztest
-      POSTGRES_DB: noiztest
-      PROCESSED_DATA_DIR: /processed-data-dir
+      NOIZ_POSTGRES_HOST: postgres
+      NOIZ_POSTGRES_PORT: "5432"
+      NOIZ_POSTGRES_USER: noiztest
+      NOIZ_POSTGRES_PASSWORD: noiztest
+      NOIZ_POSTGRES_DB: noiztest
+      NOIZ_PROCESSED_DATA_DIR: /processed-data-dir
       # You can either set all those variables here or put them into a .env file and pass it as a whole
     ports:
       - "5000:5000"  # Flask port
