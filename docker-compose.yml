@@ -53,7 +53,7 @@ services:
     # The second one is just to give some data to the system.
     # Of course, if you don't mount any of those, it will still work, but you will not be able to persist any data.
     volumes:
-      - /home/alex/noiz_databases/processed-data-dir-tutorial:/processed-data-dir
-      - /home/alex/programs/noiz-tutorial-dataset/dataset:/SDS
-      - /home/username/programs/noiz:/noiz
+      - ~/noiz_databases/processed-data-dir-tutorial:/processed-data-dir
+      - ~/programs/noiz-tutorial-dataset/dataset:/SDS
+      - ~/programs/noiz:/noiz
     
