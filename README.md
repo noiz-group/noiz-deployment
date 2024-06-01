@@ -10,22 +10,36 @@ It will contain no code, but it will rather be focused on properly docker-compos
 docker
 And access to internet so you can connect to the docker image repository
 
-## Setting up
-
-You need to login to your gitlab repository. 
-To do that, go to your terminal and type:
-
-```shell script
-docker login registry.gitlab.com 
-```
-
-It will prompt you for giving user and password. 
-You can either use your gitlab credentials or use something called `deploy token` that is delivered by gitlab.
-I higly recommend using the latter one since they are going to be stored in plain text file.
-
 ## Running
 
-First of all, adjust mount paths in the `docker-compose.yml`. 
+First of all, adjust mount paths in the `docker-compose.yml`.
+You need to specify three directories on your local machine :
+
+- Directory for hosting all the files referenced in the Noiz database (datchunks and processing results). 
+Make sure this path is on a disk with enough space to host such a volume of data.
+In our example, we create an empty directory, which will serve as mount path :
+/home/alex/noiz_databases/processed-data-dir-tutorial
+
+- Directory for hosting the input raw data (miniseed files, station.xml, state-of-health files).
+In our example we use the tutorial dataset :
+```shell script
+git clone git@gitlab.com:noiz-group/noiz-tutorial-dataset.git /home/username/programs/
+``` 
+The mount path in this case will be :
+/home/username/programs/noiz-tutorial-dataset/dataset
+
+- Directory for hosting the Noiz source codes. This must be an empty directory, since the source code of Noiz will automatically be pulled from the source repository when building the docker container.
+In our example, the mount path will be :
+/home/alex/programs/noiz
+
+Specify these mounts as following at the end of your docker-compose.yml
+```
+volumes:
+  - /home/username/noiz_databases/processed-data-dir-tutorial:/processed-data-dir
+  - /home/alex/programs/noiz-tutorial-dataset/dataset:/SDS
+  - /home/username/programs/noiz:/noiz
+```
+
 After you do that you can run in terminal:
 ```shell script
 docker-compose pull
@@ -54,9 +68,16 @@ docker-compose logs -f -t
 
 It will print out of the logs and will keep following them, as if you were attached to the process. 
 If you don't want to print the whole history, you need to add a flag `--tail 50` that will show only last 50 lines for each of the containers.
+Find the line where the jupyterlab token is given, it looks like :
+```
+http://127.0.0.1:8888/lab?token=61b38931e49123aeaf86419b03e1734956f6b5c45d512e51
+```
+Save the token in some separate file : you will need it for using the Jupyter server.
 
 Now, open new terminal.
 In the new terminal, type:
 ```shell script
 docker exec  -it noiz-deployment_noiz_1 /bin/bash     
 ```
+
+You are ready to run the Noiz core processing of your dataset : example here https://noiz-group.gitlab.io/noiz/content/tutorials/step_by_step.html

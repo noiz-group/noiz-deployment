@@ -18,7 +18,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./noiz-postgres-data:/var/lib/postgresql/data/pgdata # set that directory to some fast drive
+      - ./noiz-postgres-data:/var/lib/postgresql/data/ # set that directory to some fast drive
 
   adminer:
     image: adminer
@@ -33,12 +33,12 @@ services:
 #    env_file:
 #      - noizapp.env
     environment:
-      NOIZ_POSTGRES_HOST: postgres
-      NOIZ_POSTGRES_PORT: "5432"
-      NOIZ_POSTGRES_USER: noiztest
-      NOIZ_POSTGRES_PASSWORD: noiztest
-      NOIZ_POSTGRES_DB: noiztest
-      NOIZ_PROCESSED_DATA_DIR: /processed-data-dir
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: noiztest
+      POSTGRES_PASSWORD: noiztest
+      POSTGRES_DB: noiztest
+      PROCESSED_DATA_DIR: /processed-data-dir
       # You can either set all those variables here or put them into a .env file and pass it as a whole
     ports:
       - "5000:5000"  # Flask port
@@ -53,7 +53,7 @@ services:
     # The second one is just to give some data to the system.
     # Of course, if you don't mount any of those, it will still work, but you will not be able to persist any data.
     volumes:
-      - ./processed-data-dir:/processed-data-dir
-      - ./SDS:/SDS
-      - ./noiz:/noiz
+      - ~/noiz_databases/processed-data-dir-tutorial:/processed-data-dir
+      - ~/programs/noiz-tutorial-dataset/dataset:/SDS
+      - ~/programs/noiz:/noiz
     
